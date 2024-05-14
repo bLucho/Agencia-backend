@@ -1,6 +1,8 @@
 package com.example.agencia.domain.entities;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -40,4 +42,30 @@ public class TourEntity {
     @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
 
+    public void addTicket(TicketEntity ticket){
+        this.tikets.add(ticket);
+    }
+
+    public void removeTicket(Long id){
+        this.tikets.removeIf(ticket -> ticket.getId().equals(id));
+    }
+
+
+    public void updateTicket(){
+        this.tikets.forEach(ticket -> ticket.setTour(this));
+    }
+
+    public void addReservation(ReservationEntity reservation){
+        this.reservations.add(reservation);
+    }
+
+    
+    public void removeReservation(Long id){
+        this.tikets.removeIf(reservation -> reservation.getId().equals(id));
+    }
+
+
+    public void updateReservation(){
+        this.tikets.forEach(reservation -> reservation.setTour(this));
+    }
 }
